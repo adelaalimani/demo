@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import com.example.demo.dto.UserDto;
 import com.example.demo.model.Candidate;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
@@ -30,7 +31,7 @@ public class UserController {
         userService.deleteUserById(userId);
     }
     @PutMapping(value="{userId}")
-    public User updateUserById(@PathVariable(value = "userId") Long userId, @RequestBody User userDetails) {
+    public User updateUserById(@PathVariable(value = "userId") Long userId, @RequestBody UserDto userDetails) {
         return userService.updateUserById(userId, userDetails);
     }
     @PostMapping(value="{userId}/candidate")

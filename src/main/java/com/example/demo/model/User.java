@@ -13,7 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="users")
-public class User implements Serializable {
+public class
+User implements Serializable {
     @Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(generator = "user_sequence", strategy = GenerationType.SEQUENCE)
@@ -23,7 +24,7 @@ public class User implements Serializable {
     private String phone;
     private String name;
     @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public Candidate candidate;
 
 }

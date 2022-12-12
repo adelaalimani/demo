@@ -16,7 +16,7 @@ public class Candidate implements Serializable {
     @SequenceGenerator(name = "candidate_sequence", sequenceName = "candidate_sequence", allocationSize = 1)
     @GeneratedValue(generator = "candidate_sequence", strategy = GenerationType.SEQUENCE)
     private Long candidateId;
-    private String type;
+    private int type;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
