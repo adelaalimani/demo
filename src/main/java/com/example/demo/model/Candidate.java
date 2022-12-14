@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,8 +23,16 @@ public class Candidate implements Serializable {
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
 
-//    @OneToMany(mappedBy = "candidate")
+//    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER)
 //    List<CandidateAppliedJob> candidateAppliedJobs;
+@ManyToMany
+@JoinTable(
+        name="candidate_opening",
+        joinColumns = @JoinColumn(name="candidate_id", referencedColumnName = "candidateId"),
+        inverseJoinColumns = @JoinColumn(name="opening_id", referencedColumnName = "openingId")
+)
+      private List<Opening> openings;
+
 
 
 }

@@ -31,8 +31,8 @@ public class UserController {
         userService.deleteUserById(userId);
     }
     @PutMapping(value="{userId}")
-    public User updateUserById(@PathVariable(value = "userId") Long userId, @RequestBody UserDto userDetails) {
-        return userService.updateUserById(userId, userDetails);
+    public void updateUserById(@PathVariable(value = "userId") Long userId, @RequestBody UserDto userDetails) {
+         userService.updateUserById(userId, userDetails);
     }
     @PostMapping(value="{userId}/candidate")
     public Candidate createUserCandidate(@RequestBody Candidate candidate, @PathVariable(value = "userId") Long userId) {

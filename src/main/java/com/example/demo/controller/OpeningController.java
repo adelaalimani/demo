@@ -1,4 +1,5 @@
 package com.example.demo.controller;
+import com.example.demo.dto.OpeningDto;
 import com.example.demo.model.Opening;
 import com.example.demo.service.OpeningService;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +29,12 @@ public class OpeningController {
     public void deleteOpeningById (@PathVariable(value = "openingJobId") Long openingJobId){
         openingService.deleteOpeningById(openingJobId);
     }
-    @PutMapping(value="{openingJobId}")
-    public Opening updateOpeningById (@PathVariable("openingJobId") Long openingJobId, @RequestBody Opening openingDetails) {
-        return openingService.updateOpeningById(openingJobId, openingDetails);
-    }
+//
 
 
 
 }
+//@PutMapping(value="{openingJobId}")
+//    public void updateOpeningById (@PathVariable("openingJobId") Long openingJobId, @RequestBody OpeningDto openingDetails) {
+//        openingService.updateOpeningById(openingJobId, openingDetails);
+//    }

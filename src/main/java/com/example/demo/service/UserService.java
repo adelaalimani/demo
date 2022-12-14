@@ -35,21 +35,38 @@ public class UserService {
     public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);
     }
-    public User updateUserById(Long userId, UserDto userDetails) {
+//    public User updateUserById(Long userId, UserDto userDetails) {
+//        User user = userRepository.findById(userId).orElseThrow(()-> new NoSuchElementException("Not Found"));
+//        user.setPassword(userDetails.getPassword());
+//        user.setEmail(userDetails.getEmail());
+//        user.setPhone(userDetails.getPhone());
+//        user.setName(userDetails.getName());
+//        Candidate candidate = new Candidate();
+//        candidate.setType(userDetails.getType());
+//        candidate.setUser(user);
+//
+//        candidateRepository.save(candidate);
+//
+//        user.setCandidate(candidate);
+//
+//        return userRepository.save(user);
+//    }
+
+    public void updateUserById(Long userId, UserDto userDetails) {
         User user = userRepository.findById(userId).orElseThrow(()-> new NoSuchElementException("Not Found"));
         user.setPassword(userDetails.getPassword());
         user.setEmail(userDetails.getEmail());
         user.setPhone(userDetails.getPhone());
         user.setName(userDetails.getName());
-        Candidate candidate = new Candidate();
-        candidate.setType(userDetails.getType());
-        candidate.setUser(user);
+        if (user.getCandidate() == null) {
+            Candidate candidate = new Candidate();
+            candidate.setType(userDetails.getType());
+            candidate.setUser(user);
+            candidateRepository.save(candidate);
+        }else
+            user.getCandidate().setType(userDetails.getType());
+        userRepository.save(user);
 
-        candidateRepository.save(candidate);
-
-        user.setCandidate(candidate);
-
-        return userRepository.save(user);
     }
 
     public Candidate createUserCandidate(Candidate candidate, Long userId ) {
