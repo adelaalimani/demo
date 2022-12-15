@@ -9,7 +9,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/opening")
 public class OpeningController {
+
     private final OpeningService openingService;
+
     public OpeningController(OpeningService openingService) {
         this.openingService = openingService;
     }
@@ -29,12 +31,10 @@ public class OpeningController {
     public void deleteOpeningById (@PathVariable(value = "openingJobId") Long openingJobId){
         openingService.deleteOpeningById(openingJobId);
     }
-//
 
-
+    @PutMapping(value = "{openingJobId}")
+    public void updateOpeningById(@PathVariable("openingJobId") Long openingJobId, @RequestBody OpeningDto openingDetails) {
+        openingService.updateOpeningById(openingJobId, openingDetails);
+    }
 
 }
-//@PutMapping(value="{openingJobId}")
-//    public void updateOpeningById (@PathVariable("openingJobId") Long openingJobId, @RequestBody OpeningDto openingDetails) {
-//        openingService.updateOpeningById(openingJobId, openingDetails);
-//    }

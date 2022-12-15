@@ -1,4 +1,5 @@
 package com.example.demo.service;
+
 import com.example.demo.dto.UserDto;
 import com.example.demo.model.Candidate;
 import com.example.demo.model.User;
@@ -26,51 +27,36 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
     public Optional<User> getUserById(Long userId) {
         return userRepository.findById(userId);
     }
+
     public User createUser(User user) {
         return userRepository.save(user);
     }
+
     public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);
     }
-//    public User updateUserById(Long userId, UserDto userDetails) {
-//        User user = userRepository.findById(userId).orElseThrow(()-> new NoSuchElementException("Not Found"));
-//        user.setPassword(userDetails.getPassword());
-//        user.setEmail(userDetails.getEmail());
-//        user.setPhone(userDetails.getPhone());
-//        user.setName(userDetails.getName());
-//        Candidate candidate = new Candidate();
-//        candidate.setType(userDetails.getType());
-//        candidate.setUser(user);
-//
-//        candidateRepository.save(candidate);
-//
-//        user.setCandidate(candidate);
-//
-//        return userRepository.save(user);
-//    }
 
     public void updateUserById(Long userId, UserDto userDetails) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new NoSuchElementException("Not Found"));
-        user.setPassword(userDetails.getPassword());
-        user.setEmail(userDetails.getEmail());
-        user.setPhone(userDetails.getPhone());
-        user.setName(userDetails.getName());
+        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("Not Found"));
+        UserDto.entityToDto(user, userDetails);
         if (user.getCandidate() == null) {
             Candidate candidate = new Candidate();
-            candidate.setType(userDetails.getType());
+            candidate.setType(UserDto.candidateTypeEnum(userDetails.getType()));
             candidate.setUser(user);
             candidateRepository.save(candidate);
-        }else
-            user.getCandidate().setType(userDetails.getType());
+        } else
+            user.getCandidate().setType(UserDto.candidateTypeEnum(userDetails.getType()));
+
         userRepository.save(user);
 
     }
 
-    public Candidate createUserCandidate(Candidate candidate, Long userId ) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new NoSuchElementException("Not Found"));
+    public Candidate createUserCandidate(Candidate candidate, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("Not Found"));
         candidate.setUser(user);
         return candidateService.createCandidate(candidate);
     }

@@ -1,7 +1,5 @@
 package com.example.demo.controller;
-import com.example.demo.dto.CandidateDto;
 import com.example.demo.model.Candidate;
-import com.example.demo.model.Opening;
 import com.example.demo.repository.CandidateRepository;
 import com.example.demo.repository.OpeningsRepository;
 import com.example.demo.service.CandidateService;
@@ -35,11 +33,12 @@ public class CandidateController {
 //    public void updateCandidateById(@PathVariable(value = "candidateId") Long candidateId, @RequestBody CandidateDto candidateDetails) {
 //         candidateService.updateCandidateById(candidateId, candidateDetails);
 //    }
-    @PutMapping(value ="/{candidateId}/opening/{openingId}")
+    @PutMapping(value ="/appliedJobs/")
     public void candidatesAppliedJobs(
-            @PathVariable Long candidateId,
-            @PathVariable Long openingId
+            @RequestParam Long candidateId,
+            @RequestParam Long openingId,
+            @RequestParam String status
     ){
-       candidateService.candidateAppliedJobs(candidateId, openingId);
+       candidateService.candidateAppliedJobs(candidateId, openingId, status);
     }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -17,21 +18,23 @@ public class Candidate implements Serializable {
     @SequenceGenerator(name = "candidate_sequence", sequenceName = "candidate_sequence", allocationSize = 1)
     @GeneratedValue(generator = "candidate_sequence", strategy = GenerationType.SEQUENCE)
     private Long candidateId;
-    private int type;
+    @Enumerated(EnumType.STRING)
+    private CandidateType type;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
 
-//    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER)
-//    List<CandidateAppliedJob> candidateAppliedJobs;
-@ManyToMany
-@JoinTable(
-        name="candidate_opening",
-        joinColumns = @JoinColumn(name="candidate_id", referencedColumnName = "candidateId"),
-        inverseJoinColumns = @JoinColumn(name="opening_id", referencedColumnName = "openingId")
-)
-      private List<Opening> openings;
+    @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER)
+    Set<CandidateAppliedJob> candidateAppliedJobs;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "candidate_opening",
+            joinColumns = @JoinColumn(name = "candidate_id"),
+            inverseJoinColumns = @JoinColumn(name = "opening_id")
+    )
+    private List<Opening> openings;
 
 
 

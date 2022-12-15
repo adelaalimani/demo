@@ -1,11 +1,9 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,10 +23,12 @@ public class Opening implements Serializable {
     private String salaryLevel;
     private String notes;
     private String position;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-//    @OneToMany(mappedBy = "opening", fetch = FetchType.EAGER)
-//    List<CandidateAppliedJob> candidateAppliedJobs;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "openings")
+    @OneToMany(mappedBy = "opening", fetch = FetchType.EAGER)
+    Set<CandidateAppliedJob> candidateAppliedJobs;
+
+    @ManyToMany(mappedBy = "openings", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Candidate> candidates;
 }

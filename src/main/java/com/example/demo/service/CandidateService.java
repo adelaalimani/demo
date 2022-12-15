@@ -1,5 +1,4 @@
 package com.example.demo.service;
-import com.example.demo.dto.CandidateDto;
 import com.example.demo.model.Candidate;
 import com.example.demo.model.CandidateAppliedJob;
 import com.example.demo.model.Opening;
@@ -55,13 +54,17 @@ public class CandidateService {
 //         candidateRepository.save(candidate);
 //        }
 
-    public void candidateAppliedJobs(Long candidateId, Long openingId){
-         List<Opening> openings = openingsRepository.findAll();
+    public void candidateAppliedJobs(Long candidateId, Long openingId, String status){
         Candidate candidate= candidateRepository.findById(candidateId).orElseThrow(()-> new NoSuchElementException("Not found"));
-        Opening opening=openingsRepository.findById(openingId).orElseThrow(()-> new NoSuchElementException("Not found"));;
-        openings.add(opening);
-        candidateRepository.save(candidate);
+        Opening opening=openingsRepository.findById(openingId).orElseThrow(()-> new NoSuchElementException("Not found"));
+        CandidateAppliedJob candidateAppliedJob = new CandidateAppliedJob();
+        candidateAppliedJob.setCandidate(candidate);
+        candidateAppliedJob.setOpening(opening);
+        candidateAppliedJob.setStatus(status);
+        candidateAppliedJobRepository.save(candidateAppliedJob);
     }
+
+
 
 
 }
