@@ -1,10 +1,7 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.CandidateType;
 import com.example.demo.model.User;
 import lombok.Data;
-
-import static com.example.demo.model.CandidateType.*;
 
 @Data
 public class UserDto {
@@ -22,13 +19,4 @@ public class UserDto {
         user.setName(dto.getName());
     }
 
-    public static CandidateType candidateTypeEnum(int type){
-        return switch (type) {
-            case 0 -> UNSOLICITED;
-            case 1 -> SOLICITED;
-            case 2 -> INTERNAL;
-            default -> null;
-        };
-
-    }
 }

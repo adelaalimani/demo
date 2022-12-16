@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class CandidateDto {
         private int type;
-        private String status;
-
     }
 
 

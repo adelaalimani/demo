@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="openings")
@@ -23,6 +22,7 @@ public class Opening implements Serializable {
     private String salaryLevel;
     private String notes;
     private String position;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 

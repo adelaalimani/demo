@@ -12,18 +12,19 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="users")
-public class
-User implements Serializable {
+public class User implements Serializable {
     @Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(generator = "user_sequence", strategy = GenerationType.SEQUENCE)
     private Long userId;
+
     private String password;
     private String email;
     private String phone;
     private String name;
+
     @JsonIgnore
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "user")
     public Candidate candidate;
 
 }

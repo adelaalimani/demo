@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -18,6 +17,7 @@ public class Candidate implements Serializable {
     @SequenceGenerator(name = "candidate_sequence", sequenceName = "candidate_sequence", allocationSize = 1)
     @GeneratedValue(generator = "candidate_sequence", strategy = GenerationType.SEQUENCE)
     private Long candidateId;
+
     @Enumerated(EnumType.STRING)
     private CandidateType type;
 
@@ -26,7 +26,7 @@ public class Candidate implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "candidate", fetch = FetchType.EAGER)
-    Set<CandidateAppliedJob> candidateAppliedJobs;
+    List<CandidateAppliedJob> candidateAppliedJobs;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(

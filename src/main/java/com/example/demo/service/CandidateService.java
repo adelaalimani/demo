@@ -5,6 +5,7 @@ import com.example.demo.model.Opening;
 import com.example.demo.repository.CandidateAppliedJobRepository;
 import com.example.demo.repository.CandidateRepository;
 import com.example.demo.repository.OpeningsRepository;
+import com.example.demo.statics.EnumStatics;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -38,29 +39,19 @@ public class CandidateService {
         candidateRepository.deleteById(candidateId);
     }
 
-//    public void updateCandidateById(Long candidateId, CandidateDto candidateDetails) {
-//        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow(() -> new NoSuchElementException("Not Found"));
-//        List<CandidateAppliedJob> candidateAppliedJobs =  candidateAppliedJobRepository.findAll();
-//    if (candidate != null) {
-//            candidate.setType(candidateDetails.getType());
-//            CandidateAppliedJob candidateAppliedJob = new CandidateAppliedJob();
-//            candidateAppliedJob.setStatus(candidateDetails.getStatus());
-//            candidateAppliedJob.setCandidate(candidate);
-//            candidateAppliedJobRepository.save(candidateAppliedJob);
-//           candidate.setCandidateAppliedJobs(candidateAppliedJobs);
-//
-//        }
-//
-//         candidateRepository.save(candidate);
-//        }
+    public void updateCandidateType(Long candidateId, int type) {
+        Candidate candidate = candidateRepository.findById(candidateId).orElseThrow(() -> new NoSuchElementException("Not Found"));
+        candidate.setType(EnumStatics.candidateTypeEnum(type));
+        candidateRepository.save(candidate);
+    }
 
-    public void candidateAppliedJobs(Long candidateId, Long openingId, String status){
+    public void candidateAppliedJobs(Long candidateId, Long openingId, int status){
         Candidate candidate= candidateRepository.findById(candidateId).orElseThrow(()-> new NoSuchElementException("Not found"));
         Opening opening=openingsRepository.findById(openingId).orElseThrow(()-> new NoSuchElementException("Not found"));
         CandidateAppliedJob candidateAppliedJob = new CandidateAppliedJob();
         candidateAppliedJob.setCandidate(candidate);
         candidateAppliedJob.setOpening(opening);
-        candidateAppliedJob.setStatus(status);
+        candidateAppliedJob.setStatus(EnumStatics.statusEnum(status));
         candidateAppliedJobRepository.save(candidateAppliedJob);
     }
 

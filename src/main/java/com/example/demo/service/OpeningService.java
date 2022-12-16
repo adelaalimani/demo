@@ -12,13 +12,9 @@ import java.util.Optional;
 @Service
 public class OpeningService {
     private final OpeningsRepository openingsRepository;
-    private final CandidateAppliedJobRepository candidateAppliedJobRepository;
-    private final CandidateRepository candidateRepository;
 
-    public OpeningService(OpeningsRepository openingsRepository, CandidateAppliedJobRepository candidateAppliedJobRepository, CandidateRepository candidateRepository) {
+    public OpeningService(OpeningsRepository openingsRepository) {
         this.openingsRepository = openingsRepository;
-        this.candidateAppliedJobRepository = candidateAppliedJobRepository;
-        this.candidateRepository = candidateRepository;
     }
 
     public List<Opening> getAllOpenings() {

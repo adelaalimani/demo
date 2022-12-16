@@ -15,18 +15,22 @@ public class OpeningController {
     public OpeningController(OpeningService openingService) {
         this.openingService = openingService;
     }
+
     @GetMapping
     public List<Opening> getAllOpenings() {
         return openingService.getAllOpenings();
     }
+
     @GetMapping(value = "{openingJobId}")
     public Optional<Opening> getOpeningById(@PathVariable Long openingJobId) {
        return openingService.getOpeningById(openingJobId);
     }
+
     @PostMapping
     public Opening createOpening(@RequestBody Opening openingJobs) {
         return openingService.createOpening(openingJobs);
     }
+
     @DeleteMapping(value = "{openingJobId}")
     public void deleteOpeningById (@PathVariable(value = "openingJobId") Long openingJobId){
         openingService.deleteOpeningById(openingJobId);

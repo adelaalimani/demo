@@ -5,6 +5,7 @@ import com.example.demo.model.Candidate;
 import com.example.demo.model.User;
 import com.example.demo.repository.CandidateRepository;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.statics.EnumStatics;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,11 +46,11 @@ public class UserService {
         UserDto.entityToDto(user, userDetails);
         if (user.getCandidate() == null) {
             Candidate candidate = new Candidate();
-            candidate.setType(UserDto.candidateTypeEnum(userDetails.getType()));
+            candidate.setType(EnumStatics.candidateTypeEnum(userDetails.getType()));
             candidate.setUser(user);
             candidateRepository.save(candidate);
         } else
-            user.getCandidate().setType(UserDto.candidateTypeEnum(userDetails.getType()));
+            user.getCandidate().setType(EnumStatics.candidateTypeEnum(userDetails.getType()));
 
         userRepository.save(user);
 

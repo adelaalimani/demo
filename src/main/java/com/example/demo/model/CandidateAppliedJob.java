@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -15,10 +16,13 @@ public class CandidateAppliedJob {
     @GeneratedValue(generator = "candidate_applied_sequence", strategy = GenerationType.SEQUENCE)
     private Long candidateAppliedJobId;
 
-    private String status;
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
+
     @ManyToOne
     @JoinColumn(name = "candidateId", referencedColumnName = "candidateId")
     Candidate candidate;
+
     @ManyToOne
     @JoinColumn(name = "openingId", referencedColumnName = "openingId")
     Opening opening;
